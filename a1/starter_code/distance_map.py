@@ -27,8 +27,85 @@ from typing import Dict
 
 
 class DistanceMap:
-    # TODO: Implement this class!
-    pass
+    """ Stores the distance between two cities.
+
+    === Private Attributes ===
+    _distances:
+    """
+    _distances: Dict[str, Dict[str, int]]
+
+    def __init__(self) -> None:
+        """Initialize a DistanceMap."""
+        self._distances = {}
+
+    def add_distance(self, city1: str, city2: str,
+                     distance1: int, distance2: int = 0) -> None:
+        """Store the distance from <city1> to <city2>.
+
+        Preconditions:
+        - distance1 > 0
+        - If distance2 is given, then distance2 > 0
+        - city1 and city2 are different cities
+
+        >>> m = DistanceMap()
+        >>> m.add_distance('Toronto', 'Hamilton', 9)
+        >>> m._distances['Toronto']
+        {'Hamilton': 9}
+        >>> m._distances['Toronto']['Hamilton']
+        9
+        >>> m._distances['Hamilton']['Toronto']
+        9
+        """
+        if city1 in self._distances:
+            self._distances[city1][city2] = distance1
+        else:
+            self._distances[city1] = {}
+            self._distances[city1][city2] = distance1
+
+        if distance2 == 0:
+            if city2 in self._distances:
+                self._distances[city2][city1] = distance1
+            else:
+                self._distances[city2] = {}
+                self._distances[city2][city1] = distance1
+        else:
+            if city2 in self._distances:
+                # DEPENDING ON DESIGN DECISION: see failed doctest example.
+                # if city1 not in self._distances[city2]:
+                #     self._distances[city2][city1] = distance1
+                self._distances[city2][city1] = distance2
+            else:
+                self._distances[city2] = {}
+                self._distances[city2][city1] = distance2
+
+    def distance(self, city1: str, city2: str) -> int:
+        """Returns the distance from <city1> to <city2>.
+
+
+
+        Preconditions:
+        - city1 and city2 are different cities
+
+        >>> m = DistanceMap()
+        >>> m.add_distance('Toronto', 'Hamilton', 9, 10)
+        >>> m.distance('Toronto', 'Hamilton')
+        9
+        >>> m.distance('Toronto', 'Ottawa')
+        -1
+        >>> m.distance('Hamilton', 'Toronto')
+        10
+        >>> m.add_distance('Hamilton', 'Toronto', 10)
+        >>> m.distance('Toronto', 'Hamilton')
+        10
+        >>> m.distance('Hamilton', 'Toronto')
+        10
+
+        """
+        if city1 in self._distances:
+            if city2 in self._distances[city1]:
+                return self._distances[city1][city2]
+            return -1
+        return -1
 
 
 if __name__ == '__main__':

@@ -26,7 +26,7 @@ This module is responsible for all the reading of data from the data files.
 """
 from typing import List, Dict, Union
 import json
-from scheduler import RandomScheduler, GreedyScheduler, Scheduler
+#from scheduler import RandomScheduler, GreedyScheduler, Scheduler
 from domain import Parcel, Truck, Fleet
 from distance_map import DistanceMap
 
@@ -72,7 +72,7 @@ class SchedulingExperiment:
       <parcels>.
     """
     verbose: bool
-    scheduler: Scheduler
+    #scheduler: Scheduler
     parcels: List[Parcel]
     fleet: Fleet
     dmap: DistanceMap
@@ -221,6 +221,8 @@ def simple_check(config_file: str) -> None:
     # Create and run an experiment with that configuration.
     experiment = SchedulingExperiment(configuration)
     experiment.run(report=True)
+    # REMOVE!
+    print(type(configuration))
 
 
 if __name__ == '__main__':
