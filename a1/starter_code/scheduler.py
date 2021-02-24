@@ -57,7 +57,18 @@ class Scheduler:
         raise NotImplementedError
 
 
-# TODO: Implement classes RandomScheduler and GreedyScheduler.
+class RandomScheduler:
+    """ Randomly assigns parcels to eligible trucks until
+    full capacity is reached.
+    """
+
+    def schedule(self, parcels: List[Parcel], trucks: List[Truck],
+                 verbose: bool = False) -> List[Parcel]:
+
+
+
+class GreedyScheduler:
+    """"""
 
 
 if __name__ == '__main__':
